@@ -1,18 +1,33 @@
 import React, { useState } from "react";
 import "./ExpenseForm.css";
 
-function ExpenseForm() {
+//Props are also being used here to send it to parent component
+// In this case from ExpenseForm to NewExpense
+
+function ExpenseForm(props) {
   const [enteredTitle, setEnteredTitle] = useState("");
   const [enteredAmount, setEnteredAmount] = useState("");
   const [enteredDate, setEnteredDate] = useState("");
   const submitHandler = (e) => {
     e.preventDefault();
+    {
+      /* It protects from being refresh */
+    }
     const expenseData = {
       title: enteredTitle,
       amount: enteredAmount,
       date: new Date(enteredDate),
     };
+
+    props.onSaveExpenseDate(expenseData);
+    {
+      /* pass the data as a parameter. expensedata in this case*/
+    }
+
     console.log(expenseData);
+    setEnteredTitle("");
+    setEnteredAmount("");
+    setEnteredDate("");
   };
   return (
     <form onSubmit={submitHandler}>
